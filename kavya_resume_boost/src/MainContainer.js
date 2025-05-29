@@ -4,11 +4,7 @@ import React, { useState } from "react";
 function MainContainer() {
   /**
    * MainContainer is the primary layout for the KavyaResumeBoost app.
-   * Features:
-   * - Sidebar: AI feature selector (Section Rewriting, Content Enhancement, Grammar/Tone Correction, Keyword Optimization)
-   * - Central resume editor panel
-   * - Real-time preview pane showing changes
-   * - Light-themed, accessible, clean UI, using provided color palette
+   * Now enhanced: Colorful gradients, vibrant accents, richer UI elements per new theme.
    */
   const features = [
     {
@@ -94,34 +90,60 @@ function MainContainer() {
   }
 
   return (
-    <div className="kvb-root">
+    <div className="kvb-root kvb-colorful-bg">
       {/* Header */}
-      <div className="kvb-header">
+      <div className="kvb-header kvb-header-gradient">
         <div className="kvb-logo">
-          <span className="kvb-logo-accent">✦</span> KavyaResumeBoost
+          <span className="kvb-logo-accent kvb-logo-accent-glow">✦</span> 
+          <span className="kvb-logo-text-gradient">KavyaResumeBoost</span>
         </div>
         <div>
           <button
-            className="kvb-run-btn"
+            className="kvb-run-btn kvb-run-btn-gradient"
             onClick={handleRunAI}
             disabled={isLoading}
             aria-label="Run AI Enhancement"
           >
-            {isLoading ? "Processing..." : "Run AI"}
+            {isLoading ? (
+              <span className="kvb-spin">
+                <svg width="19" height="19" viewBox="0 0 19 19" aria-label="loading" style={{verticalAlign: 'middle'}}>
+                  <circle
+                    cx="9.5"
+                    cy="9.5"
+                    r="7.5"
+                    stroke="#fff"
+                    strokeWidth="3"
+                    fill="none"
+                    strokeDasharray="20"
+                    strokeDashoffset="13"
+                  >
+                    <animateTransform
+                      attributeName="transform"
+                      type="rotate"
+                      repeatCount="indefinite"
+                      dur="0.9s"
+                      from="0 9.5 9.5"
+                      to="360 9.5 9.5"
+                    />
+                  </circle>
+                </svg>
+                {" Processing..."}
+              </span>
+            ) : "Run AI"}
           </button>
         </div>
       </div>
       {/* Main Layout */}
-      <div className="kvb-main">
+      <div className="kvb-main kvb-main-gradient">
         {/* Sidebar */}
-        <aside className="kvb-sidebar" aria-label="Feature Selection">
-          <span className="kvb-sidebar-title">AI Features</span>
+        <aside className="kvb-sidebar kvb-sidebar-gradient" aria-label="Feature Selection">
+          <span className="kvb-sidebar-title kvb-sidebar-title-glow">AI Features</span>
           <ul className="kvb-feature-list">
             {features.map((feat) => (
               <li
                 key={feat.id}
                 className={
-                  "kvb-feature-item" +
+                  "kvb-feature-item kvb-feature-item-colorful" +
                   (selectedFeature === feat.id ? " selected" : "")
                 }
                 tabIndex={0}
@@ -133,20 +155,20 @@ function MainContainer() {
                   handleFeatureChange(feat.id)
                 }
               >
-                <div className="kvb-feature-title">{feat.name}</div>
+                <div className="kvb-feature-title kvb-feature-title-gradient">{feat.name}</div>
                 <div className="kvb-feature-desc">{feat.description}</div>
               </li>
             ))}
           </ul>
         </aside>
         {/* Editor */}
-        <section className="kvb-editor-pane">
-          <label htmlFor="kvb-editor" className="kvb-editor-label">
+        <section className="kvb-editor-pane kvb-editor-gradient">
+          <label htmlFor="kvb-editor" className="kvb-editor-label kvb-editor-label-gradient">
             Resume Editor
           </label>
           <textarea
             id="kvb-editor"
-            className="kvb-editor"
+            className="kvb-editor kvb-editor-accent-border"
             value={resumeText}
             onChange={handleEditorChange}
             aria-label="Resume Editor"
@@ -159,9 +181,9 @@ function MainContainer() {
           </div>
         </section>
         {/* Preview */}
-        <section className="kvb-preview-pane">
+        <section className="kvb-preview-pane kvb-preview-gradient">
           <div className="kvb-preview-header">
-            <span className="kvb-preview-title">Preview</span>
+            <span className="kvb-preview-title kvb-preview-title-gradient">Preview</span>
             <span className="kvb-preview-hint">
               {selectedFeature === "rewrite"
                 ? "AI suggested rewritten section:"
@@ -172,13 +194,13 @@ function MainContainer() {
                 : "Added keywords for ATS optimization:"}
             </span>
           </div>
-          <pre className="kvb-preview-content" aria-live="polite">
+          <pre className="kvb-preview-content kvb-preview-content-fancy" aria-live="polite">
             {aiPreview}
           </pre>
         </section>
       </div>
       {/* Footer */}
-      <div className="kvb-footer">
+      <div className="kvb-footer kvb-footer-gradient">
         <span>
           Powered by <span className="kvb-logo-accent">Kavya AI</span> |{" "}
           <a
